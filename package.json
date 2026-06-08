@@ -12,5 +12,8 @@
     "build:admin": "npm run build --workspace=admin",
     "start:website": "npm run start --workspace=website",
     "start:admin": "npm run start --workspace=admin"
+  },
+  "dependencies": {
+    "lightningcss-linux-x64-gnu": "1.32.0"
   }
 }
