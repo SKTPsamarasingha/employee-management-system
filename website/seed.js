@@ -2,20 +2,20 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const fs = require('fs');
 const path = require('path');
+let MONGODB_URI = process.env.MONGODB_URI;
 
 // Read .env.local file to get connection string
 const envPath = path.join(__dirname, '.env.local');
-let mongodbUri = 'mongodb://localhost:27017/employee-payroll';
 
 if (fs.existsSync(envPath)) {
   const envContent = fs.readFileSync(envPath, 'utf8');
   const match = envContent.match(/MONGODB_URI=(.*)/);
   if (match && match[1]) {
-    mongodbUri = match[1].trim();
+    MONGODB_URI = match[1].trim();
   }
 }
 
-console.log('Seeding to database:', mongodbUri);
+console.log('Seeding to database:', MONGODB_URI);
 
 // Define Schemas Inline to avoid ES modules import issues with Node CLI
 const AdminUserSchema = new mongoose.Schema({
@@ -168,7 +168,7 @@ const ContactMessage = mongoose.model('ContactMessage', ContactMessageSchema);
 // Main Seed Function
 async function seed() {
   try {
-    await mongoose.connect(mongodbUri);
+    await mongoose.connect(MONGODB_URI);
     console.log('Connected to MongoDB successfully!');
 
     // Clear existing data

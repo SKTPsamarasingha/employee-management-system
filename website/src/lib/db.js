@@ -29,6 +29,8 @@ export async function dbConnect() {
   
   try {
     cached.conn = await cached.promise;
+    console.log("DB connected");
+    
   } catch (e) {
     cached.promise = null;
     throw e;
